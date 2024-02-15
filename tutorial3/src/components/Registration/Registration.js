@@ -1,17 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  TextField,
-  Button,
-  Typography,
-  Container,
-  Grid,
-  Paper,
-  Snackbar,
-  Alert,
-} from "@mui/material";
+import { TextField, Button, Typography, Container, Grid, Paper, Snackbar, Alert } from "@mui/material";
 
 function RegistrationForm() {
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
@@ -19,7 +11,6 @@ function RegistrationForm() {
     email: "",
     password: "",
     confirmPassword: "",
-    termsAccepted: false,
   });
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -32,7 +23,7 @@ function RegistrationForm() {
     let formIsValid = true;
     let newErrors = {};
 
-    if (!formData.firstName.match(/^[a-zA-Z]+$/)) {
+    if (!formData.firstName.match(/^[a-zA-Z]+$/)) { 
       newErrors.firstName = "First Name should only contain letters.";
       formIsValid = false;
     }
@@ -67,13 +58,12 @@ function RegistrationForm() {
   };
 
   const handleChange = (e) => {
-    const { name, value, checked } = e.target;
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: name === "termsAccepted" ? checked : value,
+      [name]: value,
     });
   };
-
   
   const handleCloseSnackbar = (event, reason) => {
     if (reason === "clickaway") {
@@ -91,6 +81,7 @@ function RegistrationForm() {
       setOpenSnackbar(true);
       console.log("Registration successful");
 
+      //navigate loads a whole new page but the snackbar is still open on the registeration page and hence used setTimeout to show the notification for 1.5 seconds and then navigate to the profile page
       setTimeout(()=>{
         navigate("/profile", {
             state: {
@@ -107,13 +98,8 @@ function RegistrationForm() {
   return (
     <>
       <Container maxWidth="sm">
-        <Paper
-          elevation={3}
-          style={{ padding: "2rem", marginTop: "2rem", marginBottom: "2rem" }}
-        >
-          <Typography variant="h4" align="center" gutterBottom>
-            Registration
-          </Typography>
+        <Paper elevation={3} style={{ padding: "2rem", marginTop: "2rem", marginBottom: "2rem" }}>
+          <Typography variant="h4" align="center" gutterBottom>Registration</Typography>
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
