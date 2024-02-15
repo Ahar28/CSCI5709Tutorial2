@@ -1,4 +1,3 @@
-
 # `Tutorial 3`
 
 ## Name 
